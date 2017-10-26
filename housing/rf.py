@@ -42,16 +42,18 @@ def boost():
 
     print((y_pred - y_test)/y_test)
 
-def rf():
-    regr = RandomForestRegressor(n_estimators=100, max_features="sqrt", max_leaf_nodes=15, oob_score=True)
+def rf(max_leaf_nodes):
+    regr = RandomForestRegressor(n_estimators=100, max_leaf_nodes=max_leaf_nodes, oob_score=True)
     regr.fit(X_train, y_train)
 
     print(regr.feature_importances_)
     print(regr.oob_score_)
+    #
+    # y_pred = regr.predict(X_test)
+    # # print(y_pred - y_test)
+    # print("R-squared for Train: %.2f" % regr.score(X_train, y_train))
+    # print("R-squared for Test: %.2f" % regr.score(X_test, y_test))
 
-    y_pred = regr.predict(X_test)
-    # print(y_pred - y_test)
-    print("R-squared for Train: %.2f" % regr.score(X_train, y_train))
-    print("R-squared for Test: %.2f" % regr.score(X_test, y_test))
-
-rf()
+for i in range(1500,2000,30):
+    print "####", i
+    rf(i)
