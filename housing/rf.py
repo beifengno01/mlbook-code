@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 import math
 import numpy as np
 
-housing = pd.read_csv('../data/CaliforniaHousing.csv')
+housing = pd.read_csv('data/CaliforniaHousing.csv')
 #":type : pd.core.frame.DataFrame"
 
 #print(housing.describe())
@@ -43,17 +43,20 @@ def boost():
     print((y_pred - y_test)/y_test)
 
 def rf(max_leaf_nodes):
-    regr = RandomForestRegressor(n_estimators=100, max_leaf_nodes=max_leaf_nodes, oob_score=True)
+    # regr = RandomForestRegressor(n_estimators=100, max_leaf_nodes=max_leaf_nodes, oob_score=True)
+    regr = RandomForestRegressor(oob_score=True)
     regr.fit(X_train, y_train)
+    print(regr)
 
     print(regr.feature_importances_)
     print(regr.oob_score_)
     #
     # y_pred = regr.predict(X_test)
     # # print(y_pred - y_test)
-    # print("R-squared for Train: %.2f" % regr.score(X_train, y_train))
-    # print("R-squared for Test: %.2f" % regr.score(X_test, y_test))
+    print("R-squared for Train: %.2f" % regr.score(X_train, y_train))
+    print("R-squared for Test: %.2f" % regr.score(X_test, y_test))
 
-for i in range(1500,2000,30):
-    print "####", i
-    rf(i)
+rf(2)
+# for i in range(1500,2000,30):
+#     print("####", i)
+#     rf(i)
